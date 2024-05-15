@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_apps/bloc/get_news/bloc/get_news_bloc_bloc.dart';
+import 'package:news_apps/bloc/get_news/get_news_bloc.dart';
 import 'package:news_apps/data/datasources/news_remote_datasource.dart';
 import 'package:news_apps/home_page.dart';
 
@@ -15,9 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => GetNewsBlocBloc(NewsRemoteDatasource()),
-        )
+        BlocProvider<GetNewsBloc>(
+          create: (context) => GetNewsBloc(
+            NewsRemoteDatasource(),
+          )..add(GetNews()),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
